@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LugaresService } from 'src/app/servicios/lugares.service';
-import { icon, Map, marker, tileLayer } from 'leaflet';
+import { icon, Map, marker, tileLayer, routing, latLng } from 'leaflet';
+import 'leaflet-routing-machine';
 
 @Component({
   selector: 'app-mapas',
@@ -41,9 +42,17 @@ export class MapasComponent {
        * iconSize:[25,41]
        * }),
        */
-
+      
       //marker(this.geo, {icon:myIcon}).addTo(this.map).bindPopup("<strong>Esta es mi ubicación</strong>").openPopup(); 
       marker(this.geo).addTo(this.map).bindPopup("<strong>Esta es mi ubicación</strong>").openPopup(); 
+      marker([21.167612332954032, -100.93109517318518]).addTo(this.map).bindPopup("<strong>Esta es el consultorio</strong>").openPopup();
+
+      routing.control({
+        waypoints: [
+          latLng(this.geo),
+          latLng([21.167612332954032, -100.93109517318518])          
+        ]
+      }).addTo(this.map);
     })
   }
 
